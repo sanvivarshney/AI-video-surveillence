@@ -1,0 +1,36 @@
+<html>
+<head>
+
+	<title>AI Video Surveillance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fruktur&family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body background="data:image/jpeg;base64,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">
+<center>
+ <h1 class="gradient-text heading">AI Video Surveilance</h1>
+ <br><br>
+ <button onclick = "start()" class="btn btn-success" id="start">Start</button>
+ <br><br>
+ <h3 id="number_of_objects" class="btn btn-warning"></h3>
+ <br><br>
+ <h3 id="status" class="btn btn-danger"></h3>
+</center>
+
+<div class="copy_right_footer">
+    Developed by - Sanvi Varshney
+</div>
+
+<script src="main.js"></script>
+
+</body>
+
+</html>
